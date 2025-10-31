@@ -3,6 +3,7 @@ import plotly.express as px
 from dash import Dash, html, dcc, Input, Output
 import numpy as np
 from scipy.stats import gaussian_kde
+import os
 
 cores = ['#2E86AB', '#F6C85F', '#6F4E7C', '#9FD356', '#CA472F']
 
@@ -277,6 +278,12 @@ def cria_app(df):
 	return app
 
 
+app = cria_app(df)
+server = app.server
+
 if __name__ == '__main__':
-	app = cria_app(df)
-	app.run(debug=True, port=8050)
+    app.run(
+        debug=False,
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8050))
+    )
